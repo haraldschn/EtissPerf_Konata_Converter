@@ -46,7 +46,7 @@ class konata_converter(object):
         self.first_stage = "IF_stage"
         self.stage_mapping = {}
 
-    # open all initail file handlers
+    # open all initial file handlers
     def setup(self, timing_filename, output_filename = None, asmtrace_filename = None):
         
         if int(timing_filename[-8:-4]) > 0:
@@ -157,8 +157,8 @@ class konata_converter(object):
                 cycle = int(row[csv_stage])
                 if cycle > fetchcycle or csv_stage==self.first_stage:
                     
-                    # find cycle less than or equal
-                    less_than = [x for x in cycles if x <= cycle]
+                    # find start time of current stage in earlier cycle
+                    less_than = [x for x in cycles if x < cycle]
                     cycles.append(cycle)
 
                     if len(less_than) > 0:
