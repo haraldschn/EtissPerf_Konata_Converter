@@ -1,4 +1,4 @@
 ALT/
 __pycache__/
 .vscode/
-*.trace
+*.log

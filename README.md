@@ -15,7 +15,7 @@ To convert timing files simply call `python main.py <TIMING FILE>`
 
 The following arguments are optional:
 - `-a` ... input path of assembly trace
-- `-o` ... output path (defaults to `./pipeline_output.trace` if not used)
+- `-o` ... output path (defaults to `./pipeline_output.log` if not used)
 
 
 ## Simplifications 

@@ -72,8 +72,8 @@ class konata_converter(object):
             self.output_filename = output_filename
             self.output_file = open(output_filename, 'w')
         else:
-            self.output_filename = "pipeline_output.trace"
-            self.output_file = open("pipeline_output.trace", "w")
+            self.output_filename = "pipeline_output.log"
+            self.output_file = open("pipeline_output.log", "w")
 
         if asmtrace_filename is not None:
 
