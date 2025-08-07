@@ -42,6 +42,8 @@ class konata_converter(object):
 
         self.firstIdx = 0
 
+        self.enter_col = "Enter"
+
         # stage mapping: CSV header
         self.first_stage = "IF_stage"
         self.stage_mapping = {}
@@ -64,7 +66,7 @@ class konata_converter(object):
         self.timing_file = open(timing_filename, newline='')
         
         self.reader = csv.DictReader(self.timing_file)
-        self.first_stage = self.reader.fieldnames[0]
+        self.first_stage = self.reader.fieldnames[1]
         self.first_stage_short = self.first_stage.split('_')[0]
 
 
@@ -148,14 +150,19 @@ class konata_converter(object):
                 stage_mapping = {col: col.split("_")[0] for col in row}
                 print(stage_mapping)
                 self.output_file.write(f"Kanata\t0004\n")
-                prev_written_cycle = int(row[self.first_stage]) - 1
+                prev_written_cycle = int(row[self.enter_col])
 
             cycles = []
-            fetchcycle = int(row[self.first_stage])
+            fetchcycle = int(row[self.enter_col])
             
             for csv_stage, output_stage in stage_mapping.items():
                 cycle = int(row[csv_stage])
-                if cycle > fetchcycle or csv_stage==self.first_stage:
+
+                if csv_stage == self.enter_col:
+                    cycles.append(cycle)
+                    continue
+
+                if cycle > fetchcycle:
                     
                     # find start time of current stage in earlier cycle
                     less_than = [x for x in cycles if x < cycle]

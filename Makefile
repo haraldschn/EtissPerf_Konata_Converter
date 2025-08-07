@@ -1,6 +1,6 @@
 all:
 	python main.py /mnt/windows/__Programmieren/etiss/PerformanceSimulation_workspace/trace/RV32_4ISSUE_timing_0000.csv \
-		-a /mnt/windows/__Programmieren/etiss/PerformanceSimulation_workspace/trace/asm_trace_0000.txt \
+		-a /mnt/windows/__Programmieren/etiss/PerformanceSimulation_workspace/trace/asm_trace_0000.txt
 
 example_rv32_4issue:
 	python main.py ./examples/crc32_RV32_4ISSUE/RV32_4ISSUE_timing_0000.csv \
