@@ -128,6 +128,9 @@ class konata_converter(object):
             else:
                 self.output_file.write(f"L\t{stage.idx}\t{0}\ttiming_line_{stage.idx}\n")
 
+        ## Following condition allows to hide Fetch stage
+        # if stage.name != self.first_stage_short:
+        #     self.output_file.write(f"S\t{stage.idx}\t{0}\t{stage.name}\n")
         self.output_file.write(f"S\t{stage.idx}\t{0}\t{stage.name}\n")
 
     # helper function to write retired instructions
@@ -156,6 +159,9 @@ class konata_converter(object):
             fetchcycle = int(row[self.enter_col])
             
             for csv_stage, output_stage in stage_mapping.items():
+                if csv_stage.find(":") != -1:
+                    continue
+
                 cycle = int(row[csv_stage])
 
                 if csv_stage == self.enter_col:
