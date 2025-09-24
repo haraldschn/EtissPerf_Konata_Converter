@@ -19,7 +19,7 @@ def increment_filename(filename):
     new_idx = int(filename[-8:-4])+1
     if new_idx > 9999:
         return None
-    new_filename = filename[:-8] + f"{new_idx:04d}" + ".txt"
+    new_filename = filename[:-8] + f"{new_idx:04d}" + ".csv"
 
     if os.path.exists(new_filename):
         return new_filename
@@ -47,6 +47,8 @@ class konata_converter(object):
         # stage mapping: CSV header
         self.first_stage = "IF_stage"
         self.stage_mapping = {}
+
+        self.konata_start = False
 
     # open all initial file handlers
     def setup(self, timing_filename, output_filename = None, asmtrace_filename = None):
@@ -81,7 +83,7 @@ class konata_converter(object):
 
             # always start at index 0 for asm trace files
             if int(asmtrace_filename[-8:-4]) > 0:
-                asmtrace_filename = asmtrace_filename[:-8] + "0000.txt"
+                asmtrace_filename = asmtrace_filename[:-8] + "0000.csv"
 
             self.asmtrace_filename = asmtrace_filename
             self.asmtrace_file = open(asmtrace_filename, 'r')
@@ -129,9 +131,10 @@ class konata_converter(object):
                 self.output_file.write(f"L\t{stage.idx}\t{0}\ttiming_line_{stage.idx}\n")
 
         ## Following condition allows to hide Fetch stage
-        # if stage.name != self.first_stage_short:
-        #     self.output_file.write(f"S\t{stage.idx}\t{0}\t{stage.name}\n")
-        self.output_file.write(f"S\t{stage.idx}\t{0}\t{stage.name}\n")
+        if stage.name != self.first_stage_short:
+            self.konata_start = True
+            self.output_file.write(f"S\t{stage.idx}\t{0}\t{stage.name}\n")
+        #self.output_file.write(f"S\t{stage.idx}\t{0}\t{stage.name}\n")
 
     # helper function to write retired instructions
     def konata_retire_write(self, retire):
@@ -184,7 +187,7 @@ class konata_converter(object):
 
             while prev_written_cycle < min_cycle:
                 #print(min_cycle)
-                if prev_written_cycle > 0:
+                if prev_written_cycle > 0 and self.konata_start:
                     self.konata_next_cycle()
 
                 j = 0

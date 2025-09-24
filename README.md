@@ -1,7 +1,7 @@
 # EtissPerf Konata Converter
 ## Description
 
-This Python script allows converting `*_timing_<ID>.csv` timing files generated with the Etiss-based Performance estimator into Onikiri2-Kanata/Gem5-O3PipeView files, readable by the Konata instruction pipeline visualizer. Using the additionally generated assembly traces `asm_trace_<ID>.txt` allows labeling the lines with their appropriate assembly instruction.
+This Python script allows converting `*_timing_<ID>.csv` timing files generated with the Etiss-based Performance estimator into Onikiri2-Kanata/Gem5-O3PipeView files, readable by the Konata instruction pipeline visualizer. Using the additionally generated assembly traces `asm_trace_<ID>.csv` allows labeling the lines with their appropriate assembly instruction.
 
 - Timing file examples were generated with [PerformanceSimulation_workspace](https://github.com/tum-ei-eda/PerformanceSimulation_workspace).
 - Konata instruction pipeline visualizer [Konata](https://github.com/shioyadan/Konata).
